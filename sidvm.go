@@ -25,7 +25,21 @@
 
 package main
 
-type s_vm struct {
+type Reg uint16
+
+type Registers struct {
+	ax, bx, cx, dx, sp, ip Reg
+}
+
+type CPU struct {
+	r Registers
+}
+
+type Stack struct {
+}
+
+type VM struct {
 	c CPU
-	s Stack
+	s *Stack
+	p *Program
 }
