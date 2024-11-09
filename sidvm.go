@@ -25,6 +25,8 @@
 
 package main
 
+const stackSize = 65536
+
 type Reg uint16
 
 type Registers struct {
@@ -35,11 +37,50 @@ type CPU struct {
 	r Registers
 }
 
-type Stack struct {
+type IM struct {
+	o    Opcode
+	size int8
 }
+
+type Opcode int16
+
+const (
+	mov Opcode = 0x01
+	nop Opcode = 0x02
+)
+
+type Instruction struct {
+	o Opcode
+	a []int16
+}
+
+// type Stack struct {
+// }
+type Stack [stackSize]int8
+
+type Program []Instruction
 
 type VM struct {
 	c CPU
 	s *Stack
 	p *Program
 }
+
+var instrMAP = []IM{
+	{o: mov, size: 0x03},
+	{o: nop, size: 0x01},
+}
+
+// func virtualmachine(pr *Program, progsz int16) (*VM, error){
+// 	if pr == nil || progsz == 0 {
+// 		return nil, fmt.Errorf("invalid program")
+// 	}
+
+// 	vm := &VM{
+// 		c: CPU{
+// 			r: Registers{}
+// 		},
+// 		s:
+
+// 	}
+// }
